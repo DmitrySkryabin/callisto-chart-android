@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  generateName: 'browser-'
+  generateName: 'android-'
   labels:
     instance_id: {{ .Values.instanceID | quote }}
   {{- if .Values.callisto.browser.annotations }}
@@ -20,16 +20,8 @@ spec:
 {{- toYaml .Values.electron.initContainers | nindent 4 }}
 {{- end }}
   containers:
-    - name: browser
-{{- if eq .Values.callisto.browser.name "chrome" }}
-      image: {{ .Values.callisto.browser.chromeImage }}
-{{- else if eq .Values.callisto.browser.name "firefox" }}
-      image: {{ .Values.callisto.browser.firefoxImage }}
-{{- else if eq .Values.callisto.browser.name "edge" }}
-      image: {{ .Values.callisto.browser.edgeImage }}
-{{- else if eq .Values.callisto.browser.name "electron" }}
-      image: {{ .Values.callisto.browser.electronImage }}
-{{- end }}
+    - name: android
+      image: {{ .Values.callisto.browser.androidImage }}
       resources: {{- toYaml .Values.callisto.browser.resources | nindent 10 }}
       readinessProbe:
         httpGet:

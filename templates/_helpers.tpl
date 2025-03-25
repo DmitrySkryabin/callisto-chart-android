@@ -92,6 +92,23 @@ Also, we can't use a single if because lazy evaluation is not an option
 {{- end -}}
 
 {{/*
+Return the proper getApkService image name
+*/}}
+{{- define "getApkService.image" -}}
+{{- $repositoryName := .Values.getApkService.image.repository -}}
+{{- $tag := .Values.getApkService.image.tag | toString -}}
+{{- printf "%s:%s" $repositoryName $tag -}}
+{{- end -}}
+
+{{/*
+Return the proper getApkService proxing url
+*/}}
+{{- define "getApkService.url" -}}
+{{- $url := .Values.getApkService.service.url -}}
+{{- printf "%s" $url -}}
+{{- end -}}
+
+{{/*
 Return the proper nginx.prometheusExporter image name
 */}}
 {{- define "nginx.prometheusExporter.image" -}}

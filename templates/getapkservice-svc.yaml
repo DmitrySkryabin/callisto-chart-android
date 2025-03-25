@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "callisto.name" . }}-getapkservice
+spec:
+  type: {{ .Values.getApkService.service.type }}
+  ports:
+  - port: 5000
+    targetPort: 8000 
+  selector:
+    app: {{ template "callisto.name" . }}-getapkservice

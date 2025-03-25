@@ -41,21 +41,8 @@ spec:
         resources:
         {{ toYaml .Values.callisto.resources | nindent 10 }}
         env:
-        {{- if eq .Values.callisto.browser.name "chrome" }}
         - name: POD_IMAGE
-          value: {{ .Values.callisto.browser.chromeImage | quote }}
-        {{- else if eq .Values.callisto.browser.name "firefox" }}
-        - name: POD_IMAGE
-          value: {{ .Values.callisto.browser.firefoxImage | quote }}
-        - name: POD_WEBDRIVER_PATH
-          value: {{ .Values.callisto.browser.firefoxWebdriverPath | quote }}
-        {{- else if eq .Values.callisto.browser.name "edge" }}
-        - name: POD_IMAGE
-          value: {{ .Values.callisto.browser.edgeImage | quote }}
-        {{- else if eq .Values.callisto.browser.name "electron" }}
-        - name: POD_IMAGE
-          value: {{ .Values.callisto.browser.electronImage | quote }}
-        {{- end }}
+          value: {{ .Values.callisto.browser.androidImage | quote }}
         - name: K8S_NAMESPACE
           valueFrom:
             fieldRef:
