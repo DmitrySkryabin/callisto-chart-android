@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  generateName: 'android-'
+  generateName: 'browser-'
   labels:
     instance_id: {{ .Values.instanceID | quote }}
   {{- if .Values.callisto.browser.annotations }}
@@ -20,15 +20,17 @@ spec:
 {{- toYaml .Values.electron.initContainers | nindent 4 }}
 {{- end }}
   containers:
-    - name: android
+    - name: browser
       image: {{ .Values.callisto.browser.androidImage }}
       resources: {{- toYaml .Values.callisto.browser.resources | nindent 10 }}
+      securityContext:
+        privileged: true
       readinessProbe:
         httpGet:
           path: '/status'
           port: 4444
-        initialDelaySeconds: 3
-        periodSeconds: 3
+        initialDelaySeconds: 60
+        periodSeconds: 10
       env:
 {{- toYaml .Values.callisto.browser.env | nindent 10 }}
 {{- if eq true .Values.callisto.browser.squid.enabled }}
